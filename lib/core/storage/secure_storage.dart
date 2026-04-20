@@ -7,6 +7,8 @@ part 'secure_storage.g.dart';
 abstract class SecureStorageKeys {
   static const accessToken = 'access_token';
   static const refreshToken = 'refresh_token';
+  static const fullName = 'full_name';
+  static const phone = 'phone';
 }
 
 class SecureStorageService {
@@ -28,9 +30,26 @@ class SecureStorageService {
     await _storage.write(key: SecureStorageKeys.refreshToken, value: refresh);
   }
 
+  Future<void> saveProfile({
+    required String fullName,
+    required String phone,
+  }) async {
+    await _storage.write(key: SecureStorageKeys.fullName, value: fullName);
+    await _storage.write(key: SecureStorageKeys.phone, value: phone);
+  }
+
+  Future<({String fullName, String phone})?> getProfile() async {
+    final fullName = await _storage.read(key: SecureStorageKeys.fullName);
+    final phone = await _storage.read(key: SecureStorageKeys.phone);
+    if (fullName == null || phone == null) return null;
+    return (fullName: fullName, phone: phone);
+  }
+
   Future<void> clearTokens() async {
     await _storage.delete(key: SecureStorageKeys.accessToken);
     await _storage.delete(key: SecureStorageKeys.refreshToken);
+    await _storage.delete(key: SecureStorageKeys.fullName);
+    await _storage.delete(key: SecureStorageKeys.phone);
   }
 }
 

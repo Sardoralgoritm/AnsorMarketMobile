@@ -1,4 +1,4 @@
-import 'package:ansor_market_mobile/core/router/route_names.dart';
+import 'package:ansor_market_mobile/app.dart';
 import 'package:ansor_market_mobile/core/theme/app_dimensions.dart';
 import 'package:ansor_market_mobile/core/utils/validators.dart';
 import 'package:ansor_market_mobile/features/auth/presentation/providers/auth_provider.dart';
@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
@@ -53,7 +52,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           );
       if (!mounted) return;
       HapticFeedback.lightImpact();
-      context.go(RouteNames.home);
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const MainScreen()),
+        (_) => false,
+      );
     } catch (e) {
       if (!mounted) return;
       HapticFeedback.vibrate();
@@ -166,7 +168,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       style: context.textTheme.bodyMedium,
                     ),
                     TextButton(
-                      onPressed: () => context.pop(),
+                      onPressed: () => Navigator.of(context).pop(),
                       child: const Text('Sign in'),
                     ),
                   ],

@@ -75,9 +75,22 @@ class AuthRemoteDataSource {
   ApiException _mapError(DioException e) {
     final statusCode = e.response?.statusCode ?? 0;
     final data = e.response?.data;
-    final message = (data is Map<String, dynamic>)
-        ? (data['message'] as String? ?? e.message ?? 'Unknown error')
-        : (e.message ?? 'Unknown error');
+    String message = e.message ?? 'Unknown error';
+    if (data is Map<String, dynamic>) {
+      // Try API error format: { errors: [{ errorResult: { errorMessage: "..." } }] }
+      final errors = data['errors'];
+      if (errors is List && errors.isNotEmpty) {
+        final first = errors.first;
+        if (first is Map<String, dynamic>) {
+          final errorResult = first['errorResult'];
+          if (errorResult is Map<String, dynamic>) {
+            message = errorResult['errorMessage'] as String? ?? message;
+          }
+        }
+      } else {
+        message = data['message'] as String? ?? message;
+      }
+    }
     return ApiException(statusCode: statusCode, message: message);
   }
 }

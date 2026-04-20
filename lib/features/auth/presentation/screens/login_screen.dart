@@ -1,8 +1,9 @@
-import 'package:ansor_market_mobile/core/router/route_names.dart';
+import 'package:ansor_market_mobile/app.dart';
 import 'package:ansor_market_mobile/core/theme/app_colors.dart';
 import 'package:ansor_market_mobile/core/theme/app_dimensions.dart';
 import 'package:ansor_market_mobile/core/utils/validators.dart';
 import 'package:ansor_market_mobile/features/auth/presentation/providers/auth_provider.dart';
+import 'package:ansor_market_mobile/features/auth/presentation/screens/register_screen.dart';
 import 'package:ansor_market_mobile/shared/extensions/context_ext.dart';
 import 'package:ansor_market_mobile/shared/widgets/app_button.dart';
 import 'package:ansor_market_mobile/shared/widgets/app_text_field.dart';
@@ -10,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -42,7 +42,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           .login(_phoneCtrl.text.trim(), _passwordCtrl.text);
       if (!mounted) return;
       HapticFeedback.lightImpact();
-      context.go(RouteNames.home);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const MainScreen()),
+      );
     } catch (e) {
       if (!mounted) return;
       HapticFeedback.vibrate();
@@ -50,6 +52,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  void _goToRegister() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const RegisterScreen()),
+    );
   }
 
   @override
@@ -151,17 +159,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       style: context.textTheme.bodyMedium,
                     ),
                     TextButton(
-                      onPressed: () => context.push(RouteNames.register),
+                      onPressed: _goToRegister,
                       child: const Text('Register'),
                     ),
                   ],
                 ).animate().fadeIn(duration: 400.ms, delay: 320.ms),
-                const SizedBox(height: AppDimensions.paddingM),
-                // TODO: remove before production
-                OutlinedButton(
-                  onPressed: () => context.go(RouteNames.home),
-                  child: const Text('Skip Login (Dev)'),
-                ).animate().fadeIn(duration: 400.ms, delay: 360.ms),
               ],
             ),
           ),

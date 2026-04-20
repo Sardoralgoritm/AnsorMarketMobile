@@ -14,8 +14,10 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$AuthResponseModel {
-  TokenModel get tokens;
-  UserModel get user;
+  String get accessToken;
+  String get refreshToken;
+  String get fullName;
+  String get phone;
 
   /// Create a copy of AuthResponseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -33,17 +35,23 @@ mixin _$AuthResponseModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is AuthResponseModel &&
-            (identical(other.tokens, tokens) || other.tokens == tokens) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.phone, phone) || other.phone == phone));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, tokens, user);
+  int get hashCode =>
+      Object.hash(runtimeType, accessToken, refreshToken, fullName, phone);
 
   @override
   String toString() {
-    return 'AuthResponseModel(tokens: $tokens, user: $user)';
+    return 'AuthResponseModel(accessToken: $accessToken, refreshToken: $refreshToken, fullName: $fullName, phone: $phone)';
   }
 }
 
@@ -53,10 +61,8 @@ abstract mixin class $AuthResponseModelCopyWith<$Res> {
           AuthResponseModel value, $Res Function(AuthResponseModel) _then) =
       _$AuthResponseModelCopyWithImpl;
   @useResult
-  $Res call({TokenModel tokens, UserModel user});
-
-  $TokenModelCopyWith<$Res> get tokens;
-  $UserModelCopyWith<$Res> get user;
+  $Res call(
+      {String accessToken, String refreshToken, String fullName, String phone});
 }
 
 /// @nodoc
@@ -72,39 +78,29 @@ class _$AuthResponseModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? tokens = null,
-    Object? user = null,
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? fullName = null,
+    Object? phone = null,
   }) {
     return _then(_self.copyWith(
-      tokens: null == tokens
-          ? _self.tokens
-          : tokens // ignore: cast_nullable_to_non_nullable
-              as TokenModel,
-      user: null == user
-          ? _self.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+      accessToken: null == accessToken
+          ? _self.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      refreshToken: null == refreshToken
+          ? _self.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      fullName: null == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone: null == phone
+          ? _self.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
-  }
-
-  /// Create a copy of AuthResponseModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $TokenModelCopyWith<$Res> get tokens {
-    return $TokenModelCopyWith<$Res>(_self.tokens, (value) {
-      return _then(_self.copyWith(tokens: value));
-    });
-  }
-
-  /// Create a copy of AuthResponseModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res> get user {
-    return $UserModelCopyWith<$Res>(_self.user, (value) {
-      return _then(_self.copyWith(user: value));
-    });
   }
 }
 
@@ -201,13 +197,16 @@ extension AuthResponseModelPatterns on AuthResponseModel {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(TokenModel tokens, UserModel user)? $default, {
+    TResult Function(String accessToken, String refreshToken, String fullName,
+            String phone)?
+        $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _AuthResponseModel() when $default != null:
-        return $default(_that.tokens, _that.user);
+        return $default(
+            _that.accessToken, _that.refreshToken, _that.fullName, _that.phone);
       case _:
         return orElse();
     }
@@ -228,12 +227,15 @@ extension AuthResponseModelPatterns on AuthResponseModel {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(TokenModel tokens, UserModel user) $default,
+    TResult Function(String accessToken, String refreshToken, String fullName,
+            String phone)
+        $default,
   ) {
     final _that = this;
     switch (_that) {
       case _AuthResponseModel():
-        return $default(_that.tokens, _that.user);
+        return $default(
+            _that.accessToken, _that.refreshToken, _that.fullName, _that.phone);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -253,12 +255,15 @@ extension AuthResponseModelPatterns on AuthResponseModel {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(TokenModel tokens, UserModel user)? $default,
+    TResult? Function(String accessToken, String refreshToken, String fullName,
+            String phone)?
+        $default,
   ) {
     final _that = this;
     switch (_that) {
       case _AuthResponseModel() when $default != null:
-        return $default(_that.tokens, _that.user);
+        return $default(
+            _that.accessToken, _that.refreshToken, _that.fullName, _that.phone);
       case _:
         return null;
     }
@@ -268,14 +273,22 @@ extension AuthResponseModelPatterns on AuthResponseModel {
 /// @nodoc
 @JsonSerializable()
 class _AuthResponseModel implements AuthResponseModel {
-  const _AuthResponseModel({required this.tokens, required this.user});
+  const _AuthResponseModel(
+      {required this.accessToken,
+      required this.refreshToken,
+      required this.fullName,
+      required this.phone});
   factory _AuthResponseModel.fromJson(Map<String, dynamic> json) =>
       _$AuthResponseModelFromJson(json);
 
   @override
-  final TokenModel tokens;
+  final String accessToken;
   @override
-  final UserModel user;
+  final String refreshToken;
+  @override
+  final String fullName;
+  @override
+  final String phone;
 
   /// Create a copy of AuthResponseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -297,17 +310,23 @@ class _AuthResponseModel implements AuthResponseModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AuthResponseModel &&
-            (identical(other.tokens, tokens) || other.tokens == tokens) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.phone, phone) || other.phone == phone));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, tokens, user);
+  int get hashCode =>
+      Object.hash(runtimeType, accessToken, refreshToken, fullName, phone);
 
   @override
   String toString() {
-    return 'AuthResponseModel(tokens: $tokens, user: $user)';
+    return 'AuthResponseModel(accessToken: $accessToken, refreshToken: $refreshToken, fullName: $fullName, phone: $phone)';
   }
 }
 
@@ -319,12 +338,8 @@ abstract mixin class _$AuthResponseModelCopyWith<$Res>
       __$AuthResponseModelCopyWithImpl;
   @override
   @useResult
-  $Res call({TokenModel tokens, UserModel user});
-
-  @override
-  $TokenModelCopyWith<$Res> get tokens;
-  @override
-  $UserModelCopyWith<$Res> get user;
+  $Res call(
+      {String accessToken, String refreshToken, String fullName, String phone});
 }
 
 /// @nodoc
@@ -340,39 +355,29 @@ class __$AuthResponseModelCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? tokens = null,
-    Object? user = null,
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? fullName = null,
+    Object? phone = null,
   }) {
     return _then(_AuthResponseModel(
-      tokens: null == tokens
-          ? _self.tokens
-          : tokens // ignore: cast_nullable_to_non_nullable
-              as TokenModel,
-      user: null == user
-          ? _self.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+      accessToken: null == accessToken
+          ? _self.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      refreshToken: null == refreshToken
+          ? _self.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      fullName: null == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone: null == phone
+          ? _self.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
-  }
-
-  /// Create a copy of AuthResponseModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $TokenModelCopyWith<$Res> get tokens {
-    return $TokenModelCopyWith<$Res>(_self.tokens, (value) {
-      return _then(_self.copyWith(tokens: value));
-    });
-  }
-
-  /// Create a copy of AuthResponseModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res> get user {
-    return $UserModelCopyWith<$Res>(_self.user, (value) {
-      return _then(_self.copyWith(user: value));
-    });
   }
 }
 

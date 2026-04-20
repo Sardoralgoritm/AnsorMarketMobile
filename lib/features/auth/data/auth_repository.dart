@@ -18,9 +18,10 @@ class AuthRepository {
   }) async {
     final result = await _dataSource.login(phone: phone, password: password);
     await _storage.saveTokens(
-      access: result.tokens.accessToken,
-      refresh: result.tokens.refreshToken,
+      access: result.accessToken,
+      refresh: result.refreshToken,
     );
+    await _storage.saveProfile(fullName: result.fullName, phone: result.phone);
     return result;
   }
 
@@ -35,9 +36,10 @@ class AuthRepository {
       password: password,
     );
     await _storage.saveTokens(
-      access: result.tokens.accessToken,
-      refresh: result.tokens.refreshToken,
+      access: result.accessToken,
+      refresh: result.refreshToken,
     );
+    await _storage.saveProfile(fullName: result.fullName, phone: result.phone);
     return result;
   }
 

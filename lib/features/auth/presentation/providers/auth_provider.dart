@@ -1,3 +1,4 @@
+import 'package:ansor_market_mobile/core/storage/secure_storage.dart';
 import 'package:ansor_market_mobile/features/auth/data/auth_repository.dart';
 import 'package:ansor_market_mobile/features/auth/domain/models/user_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,10 +10,28 @@ class AuthNotifier extends _$AuthNotifier {
   @override
   UserModel? build() => null;
 
+  Future<bool> restoreSession() async {
+    final storage = ref.read(secureStorageProvider);
+    final token = await storage.getAccessToken();
+    if (token == null) return false;
+    final profile = await storage.getProfile();
+    if (profile == null) return false;
+    state = UserModel(
+      id: profile.phone,
+      fullName: profile.fullName,
+      phone: profile.phone,
+    );
+    return true;
+  }
+
   Future<void> login(String phone, String password) async {
     final repo = ref.read(authRepositoryProvider);
     final result = await repo.login(phone: phone, password: password);
-    state = result.user;
+    state = UserModel(
+      id: result.phone,
+      fullName: result.fullName,
+      phone: result.phone,
+    );
   }
 
   Future<void> register(
@@ -26,7 +45,11 @@ class AuthNotifier extends _$AuthNotifier {
       phone: phone,
       password: password,
     );
-    state = result.user;
+    state = UserModel(
+      id: result.phone,
+      fullName: result.fullName,
+      phone: result.phone,
+    );
   }
 
   Future<void> logout() async {
@@ -35,11 +58,5 @@ class AuthNotifier extends _$AuthNotifier {
     state = null;
   }
 
-  void setUser(UserModel user) {
-    state = user;
-  }
-
-  void clearUser() {
-    state = null;
-  }
+  void clearUser() => state = null;
 }

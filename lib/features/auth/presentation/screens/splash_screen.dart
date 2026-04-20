@@ -1,9 +1,10 @@
-import 'package:ansor_market_mobile/core/router/route_names.dart';
+import 'package:ansor_market_mobile/app.dart';
 import 'package:ansor_market_mobile/core/theme/app_colors.dart';
+import 'package:ansor_market_mobile/features/auth/presentation/providers/auth_provider.dart';
+import 'package:ansor_market_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -23,9 +24,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     await Future<void>.delayed(const Duration(milliseconds: 1500));
     if (!mounted) return;
 
+    final hasSession =
+        await ref.read(authNotifierProvider.notifier).restoreSession();
     if (!mounted) return;
-    // TODO: restore login redirect before production
-    context.go(RouteNames.home);
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => hasSession ? const MainScreen() : const LoginScreen(),
+      ),
+    );
   }
 
   @override
