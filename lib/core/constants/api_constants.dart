@@ -1,26 +1,27 @@
 class ApiConstants {
   static const baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'https://dev.ansormarket.uz',
+    defaultValue: 'https://api.ssardor.uz',
   );
   static const cdnBaseUrl = String.fromEnvironment(
     'CDN_BASE_URL',
-    defaultValue: 'https://cdn.ansormarket.uz',
+    defaultValue: 'https://cdn.ssardor.uz',
   );
 
   // Auth
-  static const register = '/api/auth/register';
-  static const login = '/api/auth/login';
-  static const refresh = '/api/auth/refresh';
-  static const logout = '/api/auth/logout';
+  static const register = '/api/Auth/Register';
+  static const login = '/api/Auth/Login';
+  static const refresh = '/api/Auth/Refresh';
+  static const logout = '/api/Auth/Logout';
 
   // Products
-  static const productsGetList = '/api/products/getlist';
+  static const productsGetList = '/api/Products/GetList';
+  static const productsGetById = '/api/Products/GetById';
   static const products = '/api/products';
 
   // Categories
-  static const categoriesGetList = '/api/categories/getlist';
-  static const categoriesGetTree = '/api/categories/gettree';
+  static const categoriesGetList = '/api/Categories/GetList';
+  static const categoriesGetTree = '/api/Categories/GetTree';
   static const categories = '/api/categories';
 
   // Cart

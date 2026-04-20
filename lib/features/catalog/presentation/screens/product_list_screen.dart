@@ -88,7 +88,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                 final product = items[i];
                 return ProductCard(
                   product: product,
-                  onTap: () => context.push('/products/${product.id}'),
+                  onTap: () => context.push('/product/${product.id}'),
                   onAddToCart: () => ref
                       .read(cartNotifierProvider.notifier)
                       .addItem(product.id),

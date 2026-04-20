@@ -6,11 +6,11 @@ import 'package:ansor_market_mobile/features/cart/presentation/providers/cart_pr
 import 'package:ansor_market_mobile/shared/widgets/category_chip.dart';
 import 'package:ansor_market_mobile/shared/widgets/error_view.dart';
 import 'package:ansor_market_mobile/shared/widgets/product_card.dart';
+import 'package:ansor_market_mobile/features/catalog/presentation/screens/product_detail_screen.dart';
 import 'package:ansor_market_mobile/shared/widgets/shimmer_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -137,8 +137,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         final product = items[i];
                         return ProductCard(
                           product: product,
-                          onTap: () => context.push(
-                            '/products/${product.id}',
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ProductDetailScreen(
+                                productId: product.id,
+                              ),
+                            ),
                           ),
                           onAddToCart: () => ref
                               .read(cartNotifierProvider.notifier)

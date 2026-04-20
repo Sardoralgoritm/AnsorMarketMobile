@@ -43,12 +43,12 @@ class CatalogRemoteDataSource {
         },
       );
       final data = response.data!;
-      final items = (data['items'] as List<dynamic>)
+      final items = (data['rows'] as List<dynamic>)
           .map((e) => CategoryModel.fromJson(e as Map<String, dynamic>))
           .toList();
       return PaginatedResult<CategoryModel>(
         items: items,
-        totalCount: data['totalCount'] as int,
+        totalCount: data['totalRows'] as int,
         page: page,
         pageSize: pageSize,
       );
@@ -91,12 +91,12 @@ class CatalogRemoteDataSource {
         },
       );
       final data = response.data!;
-      final items = (data['items'] as List<dynamic>)
+      final items = (data['rows'] as List<dynamic>)
           .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
           .toList();
       return PaginatedResult<ProductModel>(
         items: items,
-        totalCount: data['totalCount'] as int,
+        totalCount: data['totalRows'] as int,
         page: page,
         pageSize: pageSize,
       );
@@ -108,7 +108,7 @@ class CatalogRemoteDataSource {
   Future<ProductModel> getProductById(String id) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
-        '${ApiConstants.products}/$id',
+        '${ApiConstants.productsGetById}/$id',
       );
       return ProductModel.fromJson(response.data!);
     } on DioException catch (e) {
@@ -119,7 +119,7 @@ class CatalogRemoteDataSource {
   Future<ProductModel> getProductBySlug(String slug) async {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
-        '${ApiConstants.products}/$slug',
+        '${ApiConstants.productsGetById}/$slug',
       );
       return ProductModel.fromJson(response.data!);
     } on DioException catch (e) {

@@ -11,11 +11,14 @@ abstract class ProductModel with _$ProductModel {
     required String slug,
     String? description,
     required String categoryId,
+    String? categoryName,
     required double price,
+    String? mainImageKey,
     @Default([]) List<ProductImageModel> images,
     @Default([]) List<ProductVariantModel> variants,
     @Default([]) List<ProductAttributeModel> attributes,
     required bool isActive,
+    int? sortOrder,
   }) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>

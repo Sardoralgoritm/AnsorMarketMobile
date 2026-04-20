@@ -5,7 +5,7 @@ abstract class RouteNames {
   static const home = '/home';
   static const categories = '/categories';
   static const productList = '/products';
-  static const productDetail = '/products/:id';
+  static const productDetail = '/product/:id';
   static const cart = '/cart';
   static const profile = '/profile';
   static const editProfile = '/profile/edit';

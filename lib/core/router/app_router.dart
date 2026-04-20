@@ -84,7 +84,8 @@ GoRouter appRouter(Ref ref) {
       ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) => _ShellScaffold(child: child),
+        builder: (context, state, child) =>
+            _ShellScaffold(location: state.matchedLocation, child: child),
         routes: [
           GoRoute(
             path: RouteNames.home,
@@ -158,7 +159,8 @@ CustomTransitionPage<void> _slideUpPage(GoRouterState state, Widget child) {
 }
 
 class _ShellScaffold extends ConsumerStatefulWidget {
-  const _ShellScaffold({required this.child});
+  const _ShellScaffold({required this.location, required this.child});
+  final String location;
   final Widget child;
 
   @override
@@ -166,8 +168,6 @@ class _ShellScaffold extends ConsumerStatefulWidget {
 }
 
 class _ShellScaffoldState extends ConsumerState<_ShellScaffold> {
-  int _currentIndex = 0;
-
   static const _routes = [
     RouteNames.home,
     RouteNames.categories,
@@ -176,16 +176,22 @@ class _ShellScaffoldState extends ConsumerState<_ShellScaffold> {
     RouteNames.profile,
   ];
 
+  int _indexFromLocation(String location) {
+    for (int i = _routes.length - 1; i >= 0; i--) {
+      if (location.startsWith(_routes[i])) return i;
+    }
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentIndex = _indexFromLocation(widget.location);
+
     return Scaffold(
       body: OfflineBanner(child: widget.child),
       bottomNavigationBar: AppBottomNavBar(
-        currentIndex: _currentIndex,
-        onTap: (i) {
-          setState(() => _currentIndex = i);
-          context.go(_routes[i]);
-        },
+        currentIndex: currentIndex,
+        onTap: (i) => context.go(_routes[i]),
       ),
     );
   }

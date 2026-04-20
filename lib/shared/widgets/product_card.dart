@@ -28,9 +28,8 @@ class _ProductCardState extends State<ProductCard> {
   bool _addedFeedback = false;
 
   String? get _mainImageKey {
-    final main = widget.product.images
-        .where((i) => i.isMain)
-        .firstOrNull;
+    if (widget.product.mainImageKey != null) return widget.product.mainImageKey;
+    final main = widget.product.images.where((i) => i.isMain).firstOrNull;
     return main?.imageKey ?? widget.product.images.firstOrNull?.imageKey;
   }
 
@@ -45,9 +44,10 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Card(
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: widget.onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

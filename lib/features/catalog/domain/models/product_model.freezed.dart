@@ -19,11 +19,14 @@ mixin _$ProductModel {
   String get slug;
   String? get description;
   String get categoryId;
+  String? get categoryName;
   double get price;
+  String? get mainImageKey;
   List<ProductImageModel> get images;
   List<ProductVariantModel> get variants;
   List<ProductAttributeModel> get attributes;
   bool get isActive;
+  int? get sortOrder;
 
   /// Create a copy of ProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -48,13 +51,19 @@ mixin _$ProductModel {
                 other.description == description) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
+            (identical(other.categoryName, categoryName) ||
+                other.categoryName == categoryName) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.mainImageKey, mainImageKey) ||
+                other.mainImageKey == mainImageKey) &&
             const DeepCollectionEquality().equals(other.images, images) &&
             const DeepCollectionEquality().equals(other.variants, variants) &&
             const DeepCollectionEquality()
                 .equals(other.attributes, attributes) &&
             (identical(other.isActive, isActive) ||
-                other.isActive == isActive));
+                other.isActive == isActive) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -66,15 +75,18 @@ mixin _$ProductModel {
       slug,
       description,
       categoryId,
+      categoryName,
       price,
+      mainImageKey,
       const DeepCollectionEquality().hash(images),
       const DeepCollectionEquality().hash(variants),
       const DeepCollectionEquality().hash(attributes),
-      isActive);
+      isActive,
+      sortOrder);
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, slug: $slug, description: $description, categoryId: $categoryId, price: $price, images: $images, variants: $variants, attributes: $attributes, isActive: $isActive)';
+    return 'ProductModel(id: $id, name: $name, slug: $slug, description: $description, categoryId: $categoryId, categoryName: $categoryName, price: $price, mainImageKey: $mainImageKey, images: $images, variants: $variants, attributes: $attributes, isActive: $isActive, sortOrder: $sortOrder)';
   }
 }
 
@@ -90,11 +102,14 @@ abstract mixin class $ProductModelCopyWith<$Res> {
       String slug,
       String? description,
       String categoryId,
+      String? categoryName,
       double price,
+      String? mainImageKey,
       List<ProductImageModel> images,
       List<ProductVariantModel> variants,
       List<ProductAttributeModel> attributes,
-      bool isActive});
+      bool isActive,
+      int? sortOrder});
 }
 
 /// @nodoc
@@ -114,11 +129,14 @@ class _$ProductModelCopyWithImpl<$Res> implements $ProductModelCopyWith<$Res> {
     Object? slug = null,
     Object? description = freezed,
     Object? categoryId = null,
+    Object? categoryName = freezed,
     Object? price = null,
+    Object? mainImageKey = freezed,
     Object? images = null,
     Object? variants = null,
     Object? attributes = null,
     Object? isActive = null,
+    Object? sortOrder = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -141,10 +159,18 @@ class _$ProductModelCopyWithImpl<$Res> implements $ProductModelCopyWith<$Res> {
           ? _self.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
+      categoryName: freezed == categoryName
+          ? _self.categoryName
+          : categoryName // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: null == price
           ? _self.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
+      mainImageKey: freezed == mainImageKey
+          ? _self.mainImageKey
+          : mainImageKey // ignore: cast_nullable_to_non_nullable
+              as String?,
       images: null == images
           ? _self.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -161,6 +187,10 @@ class _$ProductModelCopyWithImpl<$Res> implements $ProductModelCopyWith<$Res> {
           ? _self.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
+      sortOrder: freezed == sortOrder
+          ? _self.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -264,11 +294,14 @@ extension ProductModelPatterns on ProductModel {
             String slug,
             String? description,
             String categoryId,
+            String? categoryName,
             double price,
+            String? mainImageKey,
             List<ProductImageModel> images,
             List<ProductVariantModel> variants,
             List<ProductAttributeModel> attributes,
-            bool isActive)?
+            bool isActive,
+            int? sortOrder)?
         $default, {
     required TResult orElse(),
   }) {
@@ -281,11 +314,14 @@ extension ProductModelPatterns on ProductModel {
             _that.slug,
             _that.description,
             _that.categoryId,
+            _that.categoryName,
             _that.price,
+            _that.mainImageKey,
             _that.images,
             _that.variants,
             _that.attributes,
-            _that.isActive);
+            _that.isActive,
+            _that.sortOrder);
       case _:
         return orElse();
     }
@@ -312,11 +348,14 @@ extension ProductModelPatterns on ProductModel {
             String slug,
             String? description,
             String categoryId,
+            String? categoryName,
             double price,
+            String? mainImageKey,
             List<ProductImageModel> images,
             List<ProductVariantModel> variants,
             List<ProductAttributeModel> attributes,
-            bool isActive)
+            bool isActive,
+            int? sortOrder)
         $default,
   ) {
     final _that = this;
@@ -328,11 +367,14 @@ extension ProductModelPatterns on ProductModel {
             _that.slug,
             _that.description,
             _that.categoryId,
+            _that.categoryName,
             _that.price,
+            _that.mainImageKey,
             _that.images,
             _that.variants,
             _that.attributes,
-            _that.isActive);
+            _that.isActive,
+            _that.sortOrder);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -358,11 +400,14 @@ extension ProductModelPatterns on ProductModel {
             String slug,
             String? description,
             String categoryId,
+            String? categoryName,
             double price,
+            String? mainImageKey,
             List<ProductImageModel> images,
             List<ProductVariantModel> variants,
             List<ProductAttributeModel> attributes,
-            bool isActive)?
+            bool isActive,
+            int? sortOrder)?
         $default,
   ) {
     final _that = this;
@@ -374,11 +419,14 @@ extension ProductModelPatterns on ProductModel {
             _that.slug,
             _that.description,
             _that.categoryId,
+            _that.categoryName,
             _that.price,
+            _that.mainImageKey,
             _that.images,
             _that.variants,
             _that.attributes,
-            _that.isActive);
+            _that.isActive,
+            _that.sortOrder);
       case _:
         return null;
     }
@@ -394,11 +442,14 @@ class _ProductModel implements ProductModel {
       required this.slug,
       this.description,
       required this.categoryId,
+      this.categoryName,
       required this.price,
+      this.mainImageKey,
       final List<ProductImageModel> images = const [],
       final List<ProductVariantModel> variants = const [],
       final List<ProductAttributeModel> attributes = const [],
-      required this.isActive})
+      required this.isActive,
+      this.sortOrder})
       : _images = images,
         _variants = variants,
         _attributes = attributes;
@@ -416,7 +467,11 @@ class _ProductModel implements ProductModel {
   @override
   final String categoryId;
   @override
+  final String? categoryName;
+  @override
   final double price;
+  @override
+  final String? mainImageKey;
   final List<ProductImageModel> _images;
   @override
   @JsonKey()
@@ -446,6 +501,8 @@ class _ProductModel implements ProductModel {
 
   @override
   final bool isActive;
+  @override
+  final int? sortOrder;
 
   /// Create a copy of ProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -474,13 +531,19 @@ class _ProductModel implements ProductModel {
                 other.description == description) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
+            (identical(other.categoryName, categoryName) ||
+                other.categoryName == categoryName) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.mainImageKey, mainImageKey) ||
+                other.mainImageKey == mainImageKey) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             const DeepCollectionEquality().equals(other._variants, _variants) &&
             const DeepCollectionEquality()
                 .equals(other._attributes, _attributes) &&
             (identical(other.isActive, isActive) ||
-                other.isActive == isActive));
+                other.isActive == isActive) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -492,15 +555,18 @@ class _ProductModel implements ProductModel {
       slug,
       description,
       categoryId,
+      categoryName,
       price,
+      mainImageKey,
       const DeepCollectionEquality().hash(_images),
       const DeepCollectionEquality().hash(_variants),
       const DeepCollectionEquality().hash(_attributes),
-      isActive);
+      isActive,
+      sortOrder);
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, slug: $slug, description: $description, categoryId: $categoryId, price: $price, images: $images, variants: $variants, attributes: $attributes, isActive: $isActive)';
+    return 'ProductModel(id: $id, name: $name, slug: $slug, description: $description, categoryId: $categoryId, categoryName: $categoryName, price: $price, mainImageKey: $mainImageKey, images: $images, variants: $variants, attributes: $attributes, isActive: $isActive, sortOrder: $sortOrder)';
   }
 }
 
@@ -518,11 +584,14 @@ abstract mixin class _$ProductModelCopyWith<$Res>
       String slug,
       String? description,
       String categoryId,
+      String? categoryName,
       double price,
+      String? mainImageKey,
       List<ProductImageModel> images,
       List<ProductVariantModel> variants,
       List<ProductAttributeModel> attributes,
-      bool isActive});
+      bool isActive,
+      int? sortOrder});
 }
 
 /// @nodoc
@@ -543,11 +612,14 @@ class __$ProductModelCopyWithImpl<$Res>
     Object? slug = null,
     Object? description = freezed,
     Object? categoryId = null,
+    Object? categoryName = freezed,
     Object? price = null,
+    Object? mainImageKey = freezed,
     Object? images = null,
     Object? variants = null,
     Object? attributes = null,
     Object? isActive = null,
+    Object? sortOrder = freezed,
   }) {
     return _then(_ProductModel(
       id: null == id
@@ -570,10 +642,18 @@ class __$ProductModelCopyWithImpl<$Res>
           ? _self.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
+      categoryName: freezed == categoryName
+          ? _self.categoryName
+          : categoryName // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: null == price
           ? _self.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
+      mainImageKey: freezed == mainImageKey
+          ? _self.mainImageKey
+          : mainImageKey // ignore: cast_nullable_to_non_nullable
+              as String?,
       images: null == images
           ? _self._images
           : images // ignore: cast_nullable_to_non_nullable
@@ -590,6 +670,10 @@ class __$ProductModelCopyWithImpl<$Res>
           ? _self.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
+      sortOrder: freezed == sortOrder
+          ? _self.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }

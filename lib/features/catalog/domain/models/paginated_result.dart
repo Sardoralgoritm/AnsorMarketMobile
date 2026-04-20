@@ -11,5 +11,5 @@ class PaginatedResult<T> {
   final int page;
   final int pageSize;
 
-  bool get hasMore => (page * pageSize) < totalCount;
+  bool get hasMore => items.length >= pageSize && (page * pageSize) < totalCount;
 }

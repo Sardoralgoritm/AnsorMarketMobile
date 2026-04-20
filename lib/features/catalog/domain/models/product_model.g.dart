@@ -13,7 +13,9 @@ _ProductModel _$ProductModelFromJson(Map<String, dynamic> json) =>
       slug: json['slug'] as String,
       description: json['description'] as String?,
       categoryId: json['categoryId'] as String,
+      categoryName: json['categoryName'] as String?,
       price: (json['price'] as num).toDouble(),
+      mainImageKey: json['mainImageKey'] as String?,
       images: (json['images'] as List<dynamic>?)
               ?.map(
                   (e) => ProductImageModel.fromJson(e as Map<String, dynamic>))
@@ -30,6 +32,7 @@ _ProductModel _$ProductModelFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       isActive: json['isActive'] as bool,
+      sortOrder: (json['sortOrder'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$ProductModelToJson(_ProductModel instance) =>
@@ -39,11 +42,14 @@ Map<String, dynamic> _$ProductModelToJson(_ProductModel instance) =>
       'slug': instance.slug,
       'description': instance.description,
       'categoryId': instance.categoryId,
+      'categoryName': instance.categoryName,
       'price': instance.price,
+      'mainImageKey': instance.mainImageKey,
       'images': instance.images,
       'variants': instance.variants,
       'attributes': instance.attributes,
       'isActive': instance.isActive,
+      'sortOrder': instance.sortOrder,
     };
 
 _ProductImageModel _$ProductImageModelFromJson(Map<String, dynamic> json) =>
