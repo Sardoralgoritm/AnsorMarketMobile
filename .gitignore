@@ -13,3 +13,19 @@ appsettings.*.local.json
 *.pem
 *.pfx
 id_rsa
+
+# --- cleanup backup ignore ---
+bin/
+obj/
+node_modules/
+.vs/
+dist/
+build/
+*.user
+appsettings.Development.json
+appsettings.*.local.json
+.env
+.env.*
+*.pem
+*.pfx
+id_rsa
