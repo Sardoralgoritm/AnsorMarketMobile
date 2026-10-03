@@ -1,0 +1,83 @@
+name: ansor_market_mobile
+description: AnsorMarket customer-facing mobile app.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Animations
+  flutter_animate: ^4.5.0
+
+  # Map
+  flutter_map: ^7.0.2
+
+  # State management
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+
+  # Secure storage
+  flutter_secure_storage: ^9.2.2
+
+  # Models — use freezed v3 for analyzer compat
+  freezed_annotation: ^3.0.0
+
+  # Location
+  geolocator: ^12.0.0
+
+  # Local cache
+  hive_flutter: ^1.1.0
+
+  # Images
+  cached_network_image: ^3.4.1
+
+  # Connectivity
+  connectivity_plus: ^6.1.5
+
+  # Navigation
+  go_router: ^14.8.1
+
+  # Utils
+  intl: ^0.19.0
+
+  # Models
+  json_annotation: ^4.9.0
+
+  # Map
+  latlong2: ^0.9.1
+
+  # Location
+  permission_handler: ^11.4.0
+
+  # Pull to refresh
+  easy_refresh: ^3.4.0
+
+  # Shimmer / skeleton loaders
+  shimmer: ^3.0.0
+
+  # Networking
+  dio: ^5.9.2
+
+  # URL launcher (for directions)
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.5.4
+  flutter_lints: ^4.0.0
+  freezed: ^3.0.0
+  json_serializable: ^6.9.5
+  riverpod_generator: ^2.6.4
+
+dependency_overrides:
+  # analyzer_plugin 0.13.0 has a breaking bug with analyzer 7.6.0 (publiclyExporting2 missing).
+  # 0.13.5 fixes it while still satisfying custom_lint_core's ^0.13.0 constraint.
+  analyzer_plugin: 0.13.4
+
+flutter:
+  uses-material-design: true
